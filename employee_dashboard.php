@@ -54,15 +54,33 @@ if ($conn->connect_error) {
     <div class="container">
         <h2>Book a Meeting Room</h2>
         <form id="bookingForm" action="book_meeting.php" method="POST">
-            <input type="date" name="meeting_date" required>
-            <input type="time" name="start_time" required>
-            <input type="time" name="end_time" required>
-            <select name="room_id" required>
+            <label for="meeting_date">Date:</label>
+            <input type="date" name="meeting_date" required><br>
+            <label for="start_time">Start Time:</label>
+            <input type="time" name="start_time" required><br>
+            <label for="end_time">End Time:</label>
+            <input type="time" name="end_time" required><br>
+            <label for="room_id">Room:</label>
+            <select name="room_id" id="room_id" required>
                 <option value="" disabled selected>Select Room</option>
-                <!-- PHP code to populate available rooms -->
-            </select>
-            <textarea name="description" placeholder="Meeting Description" required></textarea>
-            <input type="checkbox" name="tea_needed" value="1"> Tea Needed<br>
+                <?php
+                // Fetch available rooms from the database
+                $sql = "SELECT id, room_name FROM meeting_rooms";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Output data of each row
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value='" . htmlspecialchars($row['id']) . "'>" . htmlspecialchars($row['room_name']) . "</option>";
+                    }
+                } else {
+                    echo "<option value='' disabled>No rooms available</option>";
+                }
+                ?>
+            </select><br>
+            <label for="description">Description:</label>
+            <textarea name="description" placeholder="Meeting Description" required></textarea><br>
+            <input type="checkbox" name="refreshment_needed" value="1"> Refreshment Needed<br>
             <button type="submit">Book Room</button>
         </form>
     </div>
@@ -81,3 +99,7 @@ if ($conn->connect_error) {
 
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
