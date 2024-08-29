@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Check if employee is logged in
-if (!isset($_SESSION['employee_logged_in'])) {
+if (!isset($_SESSION['admin_logged_in'])) {
     header('Location: login.php');
     exit();
 }

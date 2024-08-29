@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = htmlspecialchars($_POST['user_id']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT id, user_post, password FROM users WHERE user_id = ? AND status = 'approved'");
+    $stmt = $conn->prepare("SELECT id, user_post, password FROM users WHERE user_id = ?");
     $stmt->bind_param("s", $user_id);
     $stmt->execute();
     $stmt->store_result();
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($user_post == 'admin') {
                 $_SESSION['admin_logged_in'] = true;
-                header("Location: admin_dashboard.php");
+                header("Location: new_admin_dashboard.php");
                 exit();
             } else if ($user_post == 'employee') {
                 $_SESSION['employee_logged_in'] = true; // This is crucial for the employee dashboard
@@ -46,10 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: login.php?error=Invalid credentials");
             exit();
         }
-    } else {
-        header("Location: login.php?error=Invalid credentials or account not approved");
-        exit();
-    }
+    } 
     
     $stmt->close();
 }
