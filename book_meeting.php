@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['date'])) {
             <input type="number" id="capacity" name="capacity" required><br>
             <label for="description">Description:</label>
             <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
-            <label for="tea">Tea Required:</label>
+            <label for="tea">Refreshment Required:</label>
             <input type="checkbox" id="tea" name="tea" value="1"><br>
             <button type="submit">Check Availability</button>
         </form>

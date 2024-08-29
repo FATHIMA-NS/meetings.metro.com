@@ -35,14 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$user_id', '$full_name', '$user_post', '$hashed_password', 'pending')";
 
     if ($conn->query($sql) === TRUE) {
-        // Notify admin for approval (simulated here)
-        echo "<script>
-            if (confirm('Admin: Do you approve this registration?')) {
-                window.location.href = 'approve.php?user_id=$user_id';
-            } else {
-                window.location.href = 'registerform.php?error=Registration denied by admin.';
-            }
-        </script>";
+        echo "<script>alert('Registration request submitted. Please wait for admin approval.'); window.location.href = 'registerform.php';</script>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

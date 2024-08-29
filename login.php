@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit();
             } else if ($user_post == 'employee') {
                 $_SESSION['employee_logged_in'] = true; // This is crucial for the employee dashboard
-                header("Location: employee_dashboard.php");
+                header("Location: new_employee_dashboard.php");
                 exit();
             } else {
                 header("Location: login.php?error=Unknown user role");
